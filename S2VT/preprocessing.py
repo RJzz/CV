@@ -4,6 +4,7 @@ import cv2
 import imageio
 import skimage
 import pylab
+import numpy as np
 
 VIDEO_INFO_PATH = '/home/rjzz/dataset/video/MSVD/MSR Video Description Corpus.csv'
 VIDEO_OBJECT_PATH = '/home/rjzz/dataset/video/MSVD/Video/'
@@ -40,13 +41,14 @@ if __name__ == '__main__':
     video_object = video_info.drop_duplicates()
 
     img = cv2.imread('./1.png')
-    cv2.imshow('test', img)
-    # video = cv2.VideoCapture('./mv89psg6zh4.avi')
+    # cv2.imshow('test', img)
+    video = cv2.VideoCapture('./mv89psg6zh4.avi')
 
-    # fps = video.get(cv2.CAP_PROP_FPS)
+    fps = video.get(cv2.CAP_PROP_FPS)
 
-    video = imageio.get_reader('./mv89psg6zh4.avi')
+    video = imageio.get_reader('./mv89psg6zh4_33_46.avi')
     # fps = video.get(cv2.CAP_PROP_FPS)
+    frame_num = video.get_length()
     frame_count = 0
     frame_list = []
     for i, img in enumerate(video):
@@ -54,7 +56,10 @@ if __name__ == '__main__':
         frame_count += 1
         # fig.suptitle('image # {}'.format(i), fontsize=20)
         # pylab.imshow(img)
-        opencv_img = skimage.img_as_ubyte(img, True)
+        data = skimage.img_as_ubyte(img, True)
+        frame_list.append(data)
+
+
         # print(opencv_img.shape)
     # 遍历处理视频\
 
